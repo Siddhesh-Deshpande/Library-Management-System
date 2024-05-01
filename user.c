@@ -15,6 +15,13 @@ bool issue_book(int isbn,char *person_name)
     {
         if(temp.isbn == isbn && temp.quantity>0)
         {
+            if(!can_issue(person_name,isbn))
+            {
+                // printf("Book Issue Failed2\n");
+                add_log("Book Issue Failed2\n");
+                close(fd);
+                return false;
+            }
             struct flock wrlk;
             wrlk.l_type=F_WRLCK;
             wrlk.l_whence=lseek(fd,0,SEEK_CUR)-sizeof(temp);
@@ -40,7 +47,7 @@ bool issue_book(int isbn,char *person_name)
     close(fd);
     return false;
 }
-bool return_book(int isbn)
+bool return_book(int isbn,char *username)
 {
     int fd = open("book_details.txt",O_RDWR);
     if(fd==-1)
@@ -54,6 +61,13 @@ bool return_book(int isbn)
     {
         if(temp.isbn==isbn)
         {
+            if(!check_return_status(username,isbn))
+            {
+                // printf("Book Return Failed\n");
+                add_log("Book Return Failed\n");
+                close(fd);
+                return false;
+            }
             struct flock wrlk;
             wrlk.l_type=F_WRLCK;
             wrlk.l_whence=lseek(fd,0,SEEK_CUR)-sizeof(temp);

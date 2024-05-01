@@ -38,7 +38,7 @@ void *handle_client(void *arg)
                 {
                     int isbn;
                     read(client_sd,&isbn,sizeof(isbn));
-                    int x = return_book(isbn);
+                    int x = return_book(isbn,username);
                     write(client_sd,&x,sizeof(x));                
                 }
             }

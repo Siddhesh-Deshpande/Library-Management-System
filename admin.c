@@ -38,6 +38,30 @@ bool perform_wlock(int fd , struct flock *wrlk)
         return true;
     }
 }
+bool check_user_exist(int fd,Person new)
+{
+    Person p;
+    while(read(fd,&p,sizeof(p)))
+    {
+        if(strcmp(p.name,new.name)==0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+bool check_book(int fd,Book new)
+{
+    Book b;
+    while(read(fd,&b,sizeof(b)))
+    {
+        if(strcmp(b.book_name,new.book_name)==0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
 bool add_user(Person p)
 {
     int fd = open("user_details.txt",O_RDWR|O_CREAT,0666);
@@ -52,6 +76,12 @@ bool add_user(Person p)
     // printf("Sleeping for testing\n");;
     // sleep(50);
     // remove this.
+    if(!check_user_exist(fd,p))
+    {
+        perform_unlock(fd,&wrlk);
+        add_log("User already exists\n");
+        return false;
+    }
     int st1 = lseek(fd,0,SEEK_END);
     int st2 = write(fd,&p,sizeof(p));
     if(st1==-1 || st2==-1)
@@ -77,6 +107,12 @@ bool add_book(Book b)
     }
     struct flock wrlk;
     perform_wlock(fd,&wrlk);
+    if(!check_book(fd,b))
+    {
+        perform_unlock(fd,&wrlk);
+        add_log("Book already exists\n");
+        return false;
+    }
     //remove thiss
     // printf("Sleeping for testing\n");;
     // sleep(50);

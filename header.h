@@ -11,6 +11,7 @@
 #include<pthread.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include "transaction.h"
 //to identify the operation to perform.
 #define ISSUE_BOOK 3
 #define RETURN_BOOK 4
