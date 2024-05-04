@@ -25,9 +25,9 @@ int login_user(char *username,char *password,int choice)
     {
         if(check_user(username,password))
         {
-            printf("Login trueful\n");
+            printf("Login Succesfully\n");
             add_log(username);
-            add_log(" logged in truefully\n");
+            add_log(" logged in Succesfully\n");
             return true;
         }
         else
@@ -43,9 +43,9 @@ int login_user(char *username,char *password,int choice)
     {
         if(strcmp(username,"admin")==0 && strcmp(password,"admin")==0)
         {
-            printf("Login trueful\n");
+            printf("Login Succesfully\n");
             add_log(username);
-            add_log(" logged in truefully\n");
+            add_log(" logged in Succesfully\n");
             return true;
         }
         else

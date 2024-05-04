@@ -2,4 +2,4 @@
 a.out
 server
 client
-.vscode/
+*.o
