@@ -7,12 +7,12 @@ Specifications of The System-
 2. Used Socket Programming to Communicate betweenn the client and the server.
 3. Used file locking to prevent the race condition so that the data is updated correctly when multiple clients access the same file or the record. used both write as well as read locks for better performance in case two clients want to read the same file or record.
 
-Steps to run the project:
-1.Clone the github repository
-2.Open the terminal in the folder that was downloaded.
-3.Run the Command make clean.
-4.Run the Command ./server
-5.Run the command ./client in another terminal. Open as many terminals as you want the clients and run the ./client command . 
+Steps to run the project - 
+1. Clone the github repository.
+2. Open the terminal in the folder that was downloaded.
+3. Run the Command make clean.
+4. Run the Command ./server
+5. Run the command ./client in another terminal. Open as many terminals as you want the clients and run the ./client command . 
 Perform the respective operations that you want to and check the result you will be able to see that even if multiple clients are  perrfoming operation simultaneously still the values are updated correctly.
 
 Note - Since it is practically difficult to see the race conditions the user if wished can put the getchar command before the unlock operation and see in another client is able to perform the same operation . This suggested change can be done in the admin.c and client.c files before the unlock operation happens in this way user will observe that it has to wait untill the lock is released by pressing an enter. alternative way can be to use sleep to see the race but may be time consuming .
